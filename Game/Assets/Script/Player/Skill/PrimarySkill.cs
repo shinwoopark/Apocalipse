@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
+//무기를 단계별로 강화시켜주고 총알의 발사 속도와 궤도를 관리한다
 
 public class PrimarySkill : BaseSkill
 {
+
     public float ProjectileMoveSpeed;
     public GameObject Projectile;
 
     private Weapon[] weapons;
+
     void Start()
     {
         CooldownTime = 0.2f;
@@ -29,7 +33,7 @@ public class PrimarySkill : BaseSkill
         weapons[GameInstance.instance.CurrentPlayerWeaponLevel].Activate(this, playerCharacter);
     }
 
-    public void ShootProjectile(Vector3 position, Vector3 direction /*, Transform Rotation*/)
+    public void ShootProjectile(Vector3 position, Vector3 direction)
     {
         GameObject instance = Instantiate(Projectile, position, Quaternion.identity);
         Projectile projectile = instance.GetComponent<Projectile>();

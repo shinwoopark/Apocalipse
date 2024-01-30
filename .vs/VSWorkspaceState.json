@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Game",
+    "\\Game\\Assets",
+    "\\Game\\Assets\\Script",
+    "\\Game\\Assets\\Script\\Core",
+    "\\Game\\Assets\\Script\\Enemy",
+    "\\Game\\Assets\\Script\\Item",
+    "\\Game\\Assets\\Script\\Player",
+    "\\Game\\Assets\\Script\\Player\\Skill",
+    "\\Game\\Assets\\Script\\Projectile"
+  ],
+  "SelectedNode": "\\Game\\Assets\\Script\\Projectile\\Projectile.cs",
+  "PreviewInSolutionExplorer": false
+}

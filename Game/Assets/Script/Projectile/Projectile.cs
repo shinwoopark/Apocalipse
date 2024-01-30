@@ -20,7 +20,6 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
-        //_rotation = 10;
         Destroy(gameObject, _lifeTime);
         if (gameObject.layer == 7)
         {
@@ -90,10 +89,5 @@ public class Projectile : MonoBehaviour
     public void SetDirection(Vector3 direction)
     {
         _direction = direction;
-    }
-
-    private void OnDestroy()
-    {
-        //Instantiate(ExplodeFX, transform.position, Quaternion.identity);
     }
 }

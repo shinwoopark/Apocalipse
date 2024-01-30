@@ -1,8 +1,8 @@
+using EnumTypes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EnumTypes;
-using static UnityEditor.Progress;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class Item

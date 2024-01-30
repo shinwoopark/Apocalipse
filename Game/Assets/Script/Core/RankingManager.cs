@@ -1,8 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -78,11 +78,9 @@ public class RankingManager : MonoBehaviour
             rankingEntries.Add(new RankingEntry(currentScore, currentName));
         }
 
-        // 현재 플레이어의 점수와 이름을 가져와 랭킹에 등록
         int currentPlayerScore = GameInstance.instance.Score;
         string currentPlayerName = CurrentPlayerInitial;
 
-        // 현재 플레이어의 점수가 랭킹에 등록 가능한지 확인
         if (IsScoreEligibleForRanking(currentPlayerScore))
         {
             rankingEntries.Add(new RankingEntry(currentPlayerScore, currentPlayerName));
@@ -91,16 +89,13 @@ public class RankingManager : MonoBehaviour
 
     bool IsScoreEligibleForRanking(int currentPlayerScore)
     {
-        // 랭킹에 등록 가능한지 확인 (예: 상위 5위까지만 등록 가능하도록 설정)
         return rankingEntries.Count < 5 || currentPlayerScore > rankingEntries.Min(entry => entry.Score);
     }
 
     void SortRanking()
     {
-        // 내림차순으로 정렬
         rankingEntries = rankingEntries.OrderByDescending(entry => entry.Score).ToList();
 
-        // 랭킹이 5개를 초과하면 가장 낮은 점수를 가진 항목을 제거
         if (rankingEntries.Count > 5)
         {
             rankingEntries.RemoveAt(rankingEntries.Count - 1);
@@ -123,7 +118,6 @@ public class RankingManager : MonoBehaviour
             }
         }
 
-        // PlayerPrefs 업데이트
         for (int i = 0; i < rankingEntries.Count; i++)
         {
             PlayerPrefs.SetInt(i + "BestScore", rankingEntries[i].Score);

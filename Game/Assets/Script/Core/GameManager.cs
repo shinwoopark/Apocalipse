@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -87,46 +88,64 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadNextStageAfterDelay(5f));
     }
 
-
     IEnumerator LoadNextStageAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
         switch (GameInstance.instance.CurrentStageLevel)
         {
             case 1:
+                SceneManager.LoadScene("Stage2");
+                GameInstance.instance.CurrentStageLevel = 2;
+                break;
+
+            case 2:
+                SceneManager.LoadScene("Result");
                 break;
         }
     }
 
     public void AddScore(int score)
     {
-        GameInstance.instance.Score =+ score;
+        GameInstance.instance.Score += score;
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyUp(KeyCode.F1))
         {
-
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject obj in enemies)
+            {
+                Enemy enemy = obj?.GetComponent<Enemy>();
+                enemy?.Dead();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.F2))
+
+        if (Input.GetKeyUp(KeyCode.F2))
         {
-
+            PlayerCharacter.CurrentWeaponLevel = 5;
+            GameInstance.instance.CurrentPlayerWeaponLevel = PlayerCharacter.CurrentWeaponLevel;
         }
-        if (Input.GetKeyDown(KeyCode.F3))
+
+        if (Input.GetKeyUp(KeyCode.F3))
         {
-
+            PlayerCharacter.InitskillCoolDown();
         }
-        if (Input.GetKeyDown(KeyCode.F4))
+
+        if (Input.GetKeyUp(KeyCode.F4))
         {
-
+            PlayerCharacter.GetComponent<PlayerHPSystem>().InitHealth();
         }
-        if (Input.GetKeyDown(KeyCode.F5))
+
+        if (Input.GetKeyUp(KeyCode.F5))
         {
-
+            PlayerCharacter.GetComponent<PlayerFuelSystem>().InitFuel();
         }
-        if (Input.GetKeyDown(KeyCode.F6))
+
+        if (Input.GetKeyUp(KeyCode.F6))
         {
-
+            StageClear();
         }
+
     }
 }
