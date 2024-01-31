@@ -12,6 +12,7 @@ TagManager:
   - Bomb
   - BombProjectile
   - EnemyBomb
+  - Meteor
   layers:
   - Default
   - TransparentFX
@@ -24,9 +25,9 @@ TagManager:
   - TurnLeftBullet
   - TurnRightBullet
   - RotationBullet
-  - 
-  - 
-  - 
+  - EnemyDetect
+  - PlayerBullet
+  - Boss
   - 
   - 
   - 

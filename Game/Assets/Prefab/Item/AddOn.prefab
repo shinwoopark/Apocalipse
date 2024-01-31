@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9495ba557c60384eb8dff414d16f648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile_gb: {fileID: 1795921253979186375, guid: 043385003ad2ece40a03df8d8107de99, type: 3}
+  Projectile_gb: {fileID: 5281888253267517987, guid: 043385003ad2ece40a03df8d8107de99, type: 3}
   NoEnemyProjectileMoveSpeed: 15
   ProjectileMoveSpeed: 1
   FollowTransform: {fileID: 0}

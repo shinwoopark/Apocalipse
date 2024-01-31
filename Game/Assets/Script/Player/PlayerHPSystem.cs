@@ -45,9 +45,11 @@ public class PlayerHPSystem : MonoBehaviour
         {
             Health -= 1;
             StartCoroutine(HitFlick());
-
-            Destroy(collision.gameObject);
-
+            if (collision.gameObject.layer != 13)
+            {
+                Destroy(collision.gameObject);
+            }
+            
             if (Health <= 0)
             {
                 GameManager.Instance.PlayerCharacter.DeadProcess();

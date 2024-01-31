@@ -13,6 +13,10 @@ PrefabInstance:
       value: PlayerBulletA
       objectReference: {fileID: 0}
     - target: {fileID: 5435012088191417294, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435012088191417294, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
       propertyPath: m_TagString
       value: PlayerBullet
       objectReference: {fileID: 0}

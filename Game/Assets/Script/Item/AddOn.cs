@@ -26,18 +26,12 @@ public class AddOn : MonoBehaviour
     }
     private void ShootCycleTime()
     {
-        Invoke("ShootCycleTime", 3);
+        Invoke("ShootCycleTime", 1.5f);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (enemies.Length == 0)
         {
-            GameObject instance = Instantiate(Projectile_gb, transform.position, Quaternion.identity);
-            Projectile projectile = instance.GetComponent<Projectile>();
-            if (projectile != null)
-            {
-                projectile.MoveSpeed = NoEnemyProjectileMoveSpeed;
-                projectile.SetDirection(Vector3.up);
-            }
+            return;
         }
         else
         {

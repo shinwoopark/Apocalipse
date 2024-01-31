@@ -5,7 +5,7 @@ using UnityEngine;
 public class Meteor : MonoBehaviour
 {
     [SerializeField]
-    private float MoveSpeed = 15f;
+    private float MoveSpeed = 10f;
 
     public GameObject EsplodeFX;
 

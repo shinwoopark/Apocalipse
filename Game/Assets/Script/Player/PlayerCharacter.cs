@@ -45,6 +45,13 @@ public class PlayerCharacter : GameManager
 
     public void DeadProcess()
     {
+        GameInstance.instance.GameStartTime = 0;
+        GameInstance.instance.Score = 0;
+        GameInstance.instance.CurrentStageLevel = 1;
+        GameInstance.instance.CurrentPlayerWeaponLevel = 0;
+        GameInstance.instance.CurrentPlayerHp = 3;
+        GameInstance.instance.CurrentPlayerFuel = 100f;
+        GameInstance.instance.CurrentAddOnLevel = 0;
         Destroy(gameObject);
         SceneManager.LoadScene("Main");
     }

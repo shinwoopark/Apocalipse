@@ -49,10 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5169203327816c74fa993160255139a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 3
+  Health: 2
   AttackDamage: 1
-  Freeze: 0
-  bMustSpawnItem: 0
+  bFreeze: 0
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &5260030392208133638
 MonoBehaviour:
@@ -205,8 +204,8 @@ GameObject:
   - component: {fileID: 3908924171030295027}
   - component: {fileID: 1560348165841891777}
   - component: {fileID: 5972001065600541435}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 11
+  m_Name: EnemyDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

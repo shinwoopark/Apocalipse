@@ -5,64 +5,107 @@ using UnityEngine;
 public class EnemySpawnManager : BaseManager
 {
     public GameObject[] Enemys;
-    public Transform[] EnemySpawnTrasnform;
-    public float CoolDownTime;
+    public GameObject Meteor;
+    public Transform[] EnemySpawnTransform;
+    public float CoolDownTime = 3;
+    private float _bossCoolDownTime = 3;
     public int MaxSpawnEnemyCount;
 
-    public int BossSpawnCount = 10;
-    private int _enemyCount;
-    private int _choseEnemy;
-    private int _choseEnemySpawnPos1, _choseEnemySpawnPos2, _choseEnemySpawnPos3, _choseEnemySpawnPos4;
-    private int usedEnemySpawnPos;
+    private int _spawnCount = 0;
+    private int _bossSpawnCount;
 
-    private bool _bspawnBoss = false;
+    private bool _bSpawnBoss = false;
 
     public GameObject[] Bosses;
+
+    private void Start()
+    {
+        if (GameInstance.instance.CurrentStageLevel == 1)
+        {
+            _bossSpawnCount = 15;
+        }
+        else if (GameInstance.instance.CurrentStageLevel == 2)
+        {
+            _bossSpawnCount = 20;
+        }
+        else if (GameInstance.instance.CurrentStageLevel == 3)
+        {
+            _bossSpawnCount = 30;
+        }
+    }
 
     public override void Init(GameManager gameManager)
     {
         base.Init(gameManager);
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnMeteor());
     }
 
     IEnumerator SpawnEnemy()
     {
-        while (!_bspawnBoss)
+        while (!_bSpawnBoss)
         {
-            if (BossSpawnCount == 0)
+            yield return new WaitForSeconds(CoolDownTime);
+
+            if (_spawnCount >= _bossSpawnCount)
             {
-                
+                yield return new WaitForSeconds(_bossCoolDownTime);
+                if (GameInstance.instance.CurrentStageLevel == 1)
+                {
+                    Instantiate(Bosses[0], new Vector3(EnemySpawnTransform[Random.Range(1,5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    _bSpawnBoss = true;
+                }
+                else if (GameInstance.instance.CurrentStageLevel == 2)
+                {
+                    Instantiate(Bosses[1], new Vector3(EnemySpawnTransform[Random.Range(1, 5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    _bSpawnBoss = true;
+                }
+                else if (GameInstance.instance.CurrentStageLevel == 3)
+                {
+                    Instantiate(Bosses[2], new Vector3(EnemySpawnTransform[Random.Range(1, 5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    _bSpawnBoss = true;
+                }
+            }
+
+            int spawnCount = Random.Range(1, EnemySpawnTransform.Length + 1);
+            List<int> availablePositions = new List<int>(EnemySpawnTransform.Length);
+
+            for (int i = 0; i < EnemySpawnTransform.Length; i++)
+            {
+                availablePositions.Add(i);
+            }
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                int randomEnemy = Random.Range(0, Enemys.Length);
+                int randomPositionIndex = Random.Range(0, availablePositions.Count - 1);
+                int randomPosition = availablePositions[randomPositionIndex];
+
+                availablePositions.RemoveAt(randomPositionIndex);
+
+                Instantiate(Enemys[randomEnemy], EnemySpawnTransform[randomPosition].position, Quaternion.identity);
+            }
+            _spawnCount += spawnCount;
+        }
+    }
+    IEnumerator SpawnMeteor()
+    {
+        yield return new WaitForSeconds(3);
+        while (!_bSpawnBoss)
+        {           
+            int randomPosition = Random.Range(0, 4);
+            Instantiate(Meteor, EnemySpawnTransform[randomPosition].position, Quaternion.identity);
+            if (GameInstance.instance.CurrentStageLevel == 3)
+            {
+                int CoolDownTime = Random.Range(2, 5);
+                yield return new WaitForSeconds(CoolDownTime);
             }
             else
             {
-                if (BossSpawnCount >= 4)
-                {
-                    _choseEnemySpawnPos1 = 0;
-                    _enemyCount = Random.Range(1, 5);
-                    for (int i = 0; i < _enemyCount; i++)
-                    {
-                        _choseEnemy = Random.Range(1, 5);
-                        _choseEnemySpawnPos1 = Random.Range(1, 5);
-                        SpawnEnemy(Enemys[_choseEnemy], EnemySpawnTrasnform[_choseEnemySpawnPos1]);
-                        if (i > 0)
-                        {
-                            while(_choseEnemySpawnPos1 == usedEnemySpawnPos)
-                            {
-                                _choseEnemySpawnPos1 = Random.Range(1, 5);
-                            }
-                        }
-                        usedEnemySpawnPos = _choseEnemySpawnPos1;
-                    }
-                }
-                
+                int CoolDownTime = Random.Range(3, 6);
+                yield return new WaitForSeconds(CoolDownTime);
             }
-
             
-            yield return null;
         }
-    }
-    private void SpawnEnemy(GameObject enemy, Transform transform)
-    {
-        Instantiate(enemy, transform.position, Quaternion.identity);
     }
 }

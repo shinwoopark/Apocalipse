@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class RankingManager : MonoBehaviour
 {
+    public GameManager GameManager;
     public Canvas RankingCanvas;
     public Canvas SetRankCanvas;
 
@@ -29,10 +30,10 @@ public class RankingManager : MonoBehaviour
         SortRanking();
         UpdateRankingUI();
     }
-
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        GameManager.InitInstance(); 
+        SceneManager.LoadScene("Main");
     }
 
     public void MainMenuRanking()
@@ -50,7 +51,6 @@ public class RankingManager : MonoBehaviour
         }
 
         SortRanking();
-
         for (int i = 0; i < Rankings.Length; i++)
         {
             if (i < rankingEntries.Count)
@@ -125,6 +125,7 @@ public class RankingManager : MonoBehaviour
         }
     }
 }
+
 public class RankingEntry
 {
     public int Score { get; set; }

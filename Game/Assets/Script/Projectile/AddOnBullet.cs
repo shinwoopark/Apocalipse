@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -5,32 +6,39 @@ using UnityEngine;
 
 public class AddOnBullet : MonoBehaviour
 {
-    private float near;
-    private Vector3 _direction;
-    private float MoveSpeed = 3;
+    private float _near;
+
+    private GameObject _target;
+    private float _speed = 5f;
+
+    private Vector3 _targetPos;
+    private Rigidbody2D _rigidbody2D;
     private void Start()
     {
-       
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _target = GameObject.FindWithTag("Enemy");
     }
     private void Update()
     {
-        TrackingPlayer();
-        transform.position += new Vector3(_direction.x * MoveSpeed, _direction.y * MoveSpeed, 0) * Time.deltaTime;
-        //transform.Translate(_direction * MoveSpeed * Time.deltaTime);
+        FindTarget();
+        FollowTarGet();
     }
-    private void TrackingPlayer()
+    private void FollowTarGet()
+    {
+        _targetPos = (_target.transform.position - transform.position).normalized;
+        _rigidbody2D.velocity = new Vector2(_targetPos.x * _speed, _targetPos.y * _speed);
+    }
+    private void FindTarget()
     {
         
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (enemies.Length == 0)
         {
-            MoveSpeed = 15;
+            return;
         }
         else
         {
-            Vector3 EnemyPos = transform.position;
-
             for (int i = 0; i < enemies.Length; i++)
             {
                 Transform enemiesPos = enemies[i].GetComponent<Transform>();
@@ -38,17 +46,27 @@ public class AddOnBullet : MonoBehaviour
                 Mathf.Abs(distance);
                 if (i == 0)
                 {
-                    near = distance;
-                    EnemyPos = enemiesPos.position;
+                    _near = distance;
+                    _target.transform.position = enemiesPos.position;
                 }
-                else if (near > distance)
+                else if (_near > distance)
                 {
-                    EnemyPos = enemiesPos.position;
+                    _target.transform.position = enemiesPos.position;
                 }
-                Vector3 currentDistance = EnemyPos - transform.position;
-                currentDistance.Normalize();
-                _direction = currentDistance;
             }
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "DestroyBullet":
+                Destroy(gameObject);
+                break;
+            case "Enemy":
+                    Destroy(gameObject);
+                break;
+        }
+
     }
 }

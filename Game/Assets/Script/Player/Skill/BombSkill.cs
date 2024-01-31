@@ -13,7 +13,7 @@ public class BombSkill : BaseSkill
         {
             if (obj != null)
             {
-                if (obj.GetComponent<BossA>())
+                if (obj.tag == "Boss")
                     return;
 
                 Enemy enemy = obj.GetComponent<Enemy>();
@@ -23,6 +23,10 @@ public class BombSkill : BaseSkill
                 }
             }
         }
-
+        GameObject[] enemieBullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+        foreach (GameObject obj in enemieBullets)
+        {
+            Destroy(obj);
+        }
     }
 }

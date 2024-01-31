@@ -64,12 +64,6 @@ public class GameManager : MonoBehaviour
 
         MapManager.Init(this);
     }
-
-    private void Update()
-    {
-        Debug.Log("??");
-    }
-
     public void GameStart()
     {
         SceneManager.LoadScene("Stage1");
@@ -113,7 +107,7 @@ public class GameManager : MonoBehaviour
                 GameInstance.instance.CurrentStageLevel = 3;
                 break;
             case 3:
-                SceneManager.LoadScene("End");
+                SceneManager.LoadScene("Result");
                 break;
         }
     }

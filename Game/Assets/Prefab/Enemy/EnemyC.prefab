@@ -48,10 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5169203327816c74fa993160255139a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 3
+  Health: 4
   AttackDamage: 1
-  Freeze: 0
-  bMustSpawnItem: 0
+  bFreeze: 0
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &6843561644578685827
 MonoBehaviour:
@@ -68,7 +67,7 @@ MonoBehaviour:
   Enemy: {fileID: 2127080141685058010}
   MoveSpeed: 3
   Projectile: {fileID: 8637283091417078085, guid: 4e1e77f148be8634ea4a708f3b8eb42d, type: 3}
-  ProjectileMoveSpeed: 10
+  ProjectileMoveSpeed: 7
 --- !u!212 &5191652939012154025
 SpriteRenderer:
   m_ObjectHideFlags: 0
