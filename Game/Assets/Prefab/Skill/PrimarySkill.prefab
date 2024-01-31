@@ -47,5 +47,5 @@ MonoBehaviour:
   CooldownTime: 0.2
   CurrentTime: 0
   bIsCoolDown: 1
-  ProjectileMoveSpeed: 2
+  ProjectileMoveSpeed: 15
   Projectile: {fileID: 3837978469450147576, guid: c2ae3a3375d5d694e8c8777a024aa578, type: 3}

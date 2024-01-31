@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 2127080141685058010}
-  MoveSpeed: 3
+  MoveSpeed: 4
   Projectile: {fileID: 8637283091417078085, guid: 8e419985f2ea6c84ab4ca0fa08d32dee, type: 3}
   ProjectileMoveSpeed: 3
 --- !u!212 &5191652939012154025

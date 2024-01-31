@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossB : MonoBehaviour
 {
-    public GameObject Projectile_gb, Projectile2_gb, Projectile3_gb, Projectile4_gb;
+    public GameObject Projectile_gb, Projectile2_gb, Projectile3_gb;
     public Transform BulletPos1, BulletPos2;
     public float MoveSpeed = 2.0f;
     public float MoveDistance = 5.0f;

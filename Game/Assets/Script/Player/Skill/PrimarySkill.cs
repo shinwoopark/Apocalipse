@@ -3,11 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//무기를 단계별로 강화시켜주고 총알의 발사 속도와 궤도를 관리한다
-
 public class PrimarySkill : BaseSkill
 {
-
     public float ProjectileMoveSpeed;
     public GameObject Projectile;
 

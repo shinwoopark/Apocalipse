@@ -8,5 +8,6 @@ public class InvincibilityItem : BaseItem
     {
         gameManager.PlayerCharacter.GetComponent<PlayerCharacter>().SetInvincibility(true);
         base.OnGetItem(gameManager);
+        Destroy(gameObject);
     }
 }

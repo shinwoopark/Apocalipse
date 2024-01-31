@@ -11,12 +11,12 @@ public class PlayerHPSystem : MonoBehaviour
 
     void Start()
     {
-        Health = GameInstance.instance.CurrentPlayerHP;
+        Health = GameInstance.instance.CurrentPlayerHp;
     }
     public void InitHealth()
     {
         Health = MaxHealth;
-        GameInstance.instance.CurrentPlayerHP = Health;
+        GameInstance.instance.CurrentPlayerHp = Health;
     }
 
     IEnumerator HitFlick()
@@ -40,7 +40,7 @@ public class PlayerHPSystem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")
-            && !GameManager.Instance.PlayerCharacter.Invincibility
+            && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
@@ -54,7 +54,7 @@ public class PlayerHPSystem : MonoBehaviour
             }
         }
         if (collision.gameObject.CompareTag("EnemyBullet")
-            && !GameManager.Instance.PlayerCharacter.Invincibility
+            && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
@@ -68,13 +68,25 @@ public class PlayerHPSystem : MonoBehaviour
             }
         }
         if (collision.gameObject.CompareTag("Boss")
-            && !GameManager.Instance.PlayerCharacter.Invincibility
+            && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
             StartCoroutine(HitFlick());
 
             Destroy(collision.gameObject);
+
+            if (Health <= 0)
+            {
+                GameManager.Instance.PlayerCharacter.DeadProcess();
+            }
+        }
+        if (collision.gameObject.CompareTag("EnemyBomb")
+            && !GameManager.Instance.PlayerCharacter.bInvincibility
+            && !GameManager.Instance.bStageCleared)
+        {
+            Health -= 2;
+            StartCoroutine(HitFlick());
 
             if (Health <= 0)
             {
@@ -89,6 +101,6 @@ public class PlayerHPSystem : MonoBehaviour
             }
         }
 
-        GameInstance.instance.CurrentPlayerHP = Health;
+        GameInstance.instance.CurrentPlayerHp = Health;
     }
 }

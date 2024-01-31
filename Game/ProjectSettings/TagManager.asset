@@ -9,18 +9,21 @@ TagManager:
   - Enemy
   - Boss
   - Item
+  - Bomb
+  - BombProjectile
+  - EnemyBomb
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DestroyWall
   - Water
   - UI
-  - 
+  - Bomb
   - EnemyDBullet
   - TurnLeftBullet
   - TurnRightBullet
-  - 
+  - RotationBullet
   - 
   - 
   - 

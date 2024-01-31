@@ -50,8 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   AttackDamage: 1
-  Freeze: 0
-  bMustSpawnItem: 0
+  bFreeze: 0
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &6333239683488515017
 MonoBehaviour:
@@ -65,8 +64,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c162c62547c34264d8e22fb4126fea99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile_gb: {fileID: 0}
-  Projectile2_gb: {fileID: 0}
+  Projectile_gb: {fileID: 759345171409561039, guid: ac7d8fef82c40ac41a169215dbc81b0b, type: 3}
+  Projectile2_gb: {fileID: 8637283091417078085, guid: 0cc12578a929cd94da28364c6ef6a1d7, type: 3}
   ProjectileMoveSpeed: 5
   FireRate: 2
   MoveSpeed: 2

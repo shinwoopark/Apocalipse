@@ -6,10 +6,11 @@ public class RepairItem : BaseItem
 {
     public override void OnGetItem(GameManager gameManager)
     {
+        base.OnGetItem(gameManager);
         PlayerHPSystem system = gameManager.PlayerCharacter.GetComponent<PlayerHPSystem>();
         if (system != null)
         {
-            system.Health += 1; //HP + 1
+            system.Health += 1;
             Destroy(gameObject);
         }
     }

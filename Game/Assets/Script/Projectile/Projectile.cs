@@ -11,8 +11,6 @@ public class Projectile : MonoBehaviour
 
     private float _rotation;
 
-    public GameObject ExplodeFX;
-
     [SerializeField]
     private float _lifeTime = 3f;
 

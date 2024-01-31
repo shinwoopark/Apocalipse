@@ -13,7 +13,7 @@ public class EnemyPatternD : MonoBehaviour
 
     void Update()
     {
-        if (Enemy.Freeze == false)
+        if (Enemy.bFreeze == false)
         {
             PlayerPosUpdate();
             MoveUpdate();
@@ -21,7 +21,7 @@ public class EnemyPatternD : MonoBehaviour
     }
     public void Attack()
     {
-        if (Enemy.Freeze == false)
+        if (Enemy.bFreeze == false)
         {
             Vector3 position = transform.position;
             for (int i = 0; i < 360; i += 60)
@@ -52,8 +52,12 @@ public class EnemyPatternD : MonoBehaviour
     }
     void PlayerPosUpdate()
     {
-        GameObject manager = GameObject.Find("Managers");
-        PlayerCharacter character = manager.GetComponent<GameManager>().PlayerCharacter;
+        GameObject player_gb = GameObject.Find("PlayerCharacter");
+        PlayerCharacter character = player_gb.GetComponent<PlayerCharacter>();
+        if (character is null)
+        {
+            return;
+        }
         Vector3 playerPos = character.GetComponent<Transform>().position;
         Vector3 direction = playerPos - transform.position;
         direction.Normalize();

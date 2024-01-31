@@ -25,13 +25,14 @@ public class PlayerCharacter : GameManager
     }
 
     public int CurrentWeaponLevel = 0;
-    public int MaxWeaponLevel = 3;
+    public int MaxWeaponLevel = 5;
 
+    public AddOnItem AddOnItem;
     public Transform[] AddOnTransform;
     public GameObject AddOnPrefab;
     [HideInInspector] public int MaxAddOnCount = 2;
 
-    private void Awake()
+    private void Start()
     {
 
         for (int i = 0; i < GameInstance.instance.CurrentAddOnLevel; i++)
@@ -45,11 +46,46 @@ public class PlayerCharacter : GameManager
     public void DeadProcess()
     {
         Destroy(gameObject);
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main");
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject obj in enemies)
+            {
+                Enemy enemy = obj?.GetComponent<Enemy>();
+                enemy?.Dead();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            PlayerCharacter.CurrentWeaponLevel = 5;
+            GameInstance.instance.CurrentPlayerWeaponLevel = PlayerCharacter.CurrentWeaponLevel;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            PlayerCharacter.InitskillCoolDown();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            PlayerCharacter.GetComponent<PlayerHPSystem>().InitHealth();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            PlayerCharacter.GetComponent<PlayerFuelSystem>().InitFuel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            StageClear();
+        }
         UpdateMovement();
         UpdateSkillInput();
     }
@@ -63,11 +99,6 @@ public class PlayerCharacter : GameManager
     }
     private void UpdateMovement()
     {
-        if(Camera.main != null)
-        {
-            Debug.Log(Camera.main.transform.position);
-        }
-        
         _moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         transform.Translate(new Vector3(_moveInput.x, _moveInput.y, 0f) * (MoveSpeed * Time.deltaTime));
 
@@ -113,13 +144,10 @@ public class PlayerCharacter : GameManager
     }
     private void ActivateSkill(EnumTypes.PlayerSkill skillType)
     {
-        Debug.Log(skillType);
         if (Skills.ContainsKey(skillType))
         {
-            
             if (Skills[skillType].IsAvailable())
             {
-                
                 Skills[skillType].Activate();
             }
         }
@@ -153,7 +181,7 @@ public class PlayerCharacter : GameManager
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Item"))
+        if (collision.gameObject.tag == "Item")
         {
             BaseItem baseIteml = collision.gameObject.GetComponent<BaseItem>();
             baseIteml.OnGetItem(GameManager);

@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     public float Health = 3f;
     public float AttackDamage = 1f;
     bool bIsDead = false;
-    public bool Freeze = false;
-    public bool bMustSpawnItem = false;
+    public bool bFreeze = false;
     private float _freezingTime;
 
     public GameObject ExplodeFX;
@@ -20,13 +20,13 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (Freeze)
+        if (bFreeze)
         {
             _freezingTime -= Time.deltaTime;
             if (_freezingTime <= 0)
             {
                 _freezingTime = 0;
-                Freeze = false;
+                bFreeze = false;
             }
         }
     }
@@ -35,29 +35,36 @@ public class Enemy : MonoBehaviour
     {
         if (!bIsDead)
         {
-            GameManager.Instance.EnemDies();
-
             if (gameObject.tag == "Boss")
             {
+                Instantiate(ExplodeFX, transform.position, Quaternion.identity);
                 GameManager.Instance.ItemManager.SpawnRandomItem(transform.position);
+                Destroy(gameObject);
+                bIsDead = true;
+                return;
             }
-            if (!bMustSpawnItem)
-                GameManager.Instance.ItemManager.SpawnRandomItem(0, 3, transform.position);
-            else
-                GameManager.Instance.ItemManager.SpawnRandomItem(transform.position);
-
             Instantiate(ExplodeFX, transform.position, Quaternion.identity);
+            GameManager.Instance.EnemDies();
+            GameManager.Instance.ItemManager.SpawnRandomItem(0, 3, transform.position);
             Destroy(gameObject);
             bIsDead = true;
-
-
         }
     }
-
+    private void BossCHp()
+    {
+        int phase = 1;
+        if (gameObject.name == "BossC")
+        {
+            if(phase == 1)
+            {
+                phase = 2;
+            }
+        }
+    }
     public void Freezing()
     {
         _freezingTime = 3;
-        Freeze = true;
+        bFreeze = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

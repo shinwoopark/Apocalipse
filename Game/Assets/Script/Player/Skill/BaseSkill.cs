@@ -29,13 +29,11 @@ public class BaseSkill : MonoBehaviour
 
     public bool IsAvailable()
     {
-        Debug.Log("shooooot");
         return !bIsCoolDown;
     }
 
     public virtual void Activate()
-    {
-        Debug.Log("shoot");
+    {       
         bIsCoolDown = true;
         CurrentTime = CooldownTime;
     }

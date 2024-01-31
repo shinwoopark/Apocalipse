@@ -7,20 +7,19 @@ public class AddOnBullet : MonoBehaviour
 {
     private float near;
     private Vector3 _direction;
-    private float MoveSpeed = 2;
+    private float MoveSpeed = 3;
     private void Start()
     {
-        TrackingPlayer1();
+       
     }
     private void Update()
     {
-        transform.position += new Vector3(_direction.x, _direction.y, 0) * MoveSpeed * Time.deltaTime;
-        MoveSpeed += Time.deltaTime;
+        TrackingPlayer();
+        transform.position += new Vector3(_direction.x * MoveSpeed, _direction.y * MoveSpeed, 0) * Time.deltaTime;
         //transform.Translate(_direction * MoveSpeed * Time.deltaTime);
     }
-    private void TrackingPlayer1()
+    private void TrackingPlayer()
     {
-        Invoke("TrackingPlayer1",0.1f);
         
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -46,8 +45,10 @@ public class AddOnBullet : MonoBehaviour
                 {
                     EnemyPos = enemiesPos.position;
                 }
+                Vector3 currentDistance = EnemyPos - transform.position;
+                currentDistance.Normalize();
+                _direction = currentDistance;
             }
-            _direction = EnemyPos - transform.position;
         }
     }
 }

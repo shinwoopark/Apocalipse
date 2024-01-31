@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7322651759219751284}
   - component: {fileID: 315804207334494188}
   - component: {fileID: 4897757062931587083}
+  - component: {fileID: -449528317255751831}
   m_Layer: 0
   m_Name: BossB
   m_TagString: Enemy
@@ -33,7 +34,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3134805147192612916}
+  - {fileID: 5415875754582727228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5729154975549280941
@@ -50,8 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 200
   AttackDamage: 1
-  Freeze: 0
-  bMustSpawnItem: 0
+  bFreeze: 0
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &-2256973861845944883
 MonoBehaviour:
@@ -65,6 +67,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626e2827c45ce844588a324cdaef6543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Projectile_gb: {fileID: 8637283091417078085, guid: 4e1e77f148be8634ea4a708f3b8eb42d, type: 3}
+  Projectile2_gb: {fileID: 759345171409561039, guid: ac7d8fef82c40ac41a169215dbc81b0b, type: 3}
+  Projectile3_gb: {fileID: 759345171409561039, guid: 64213087e66c8ff4ab2fc545f3f4a7dc, type: 3}
+  BulletPos1: {fileID: 3134805147192612916}
+  BulletPos2: {fileID: 5415875754582727228}
+  MoveSpeed: 2
+  MoveDistance: 5
 --- !u!212 &7322651759219751284
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -106,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8421458170528590454, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  m_Sprite: {fileID: 2192450021786810173, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,12 +189,95 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.125}
+    oldSize: {x: 2.75, y: 2.75}
     newSize: {x: 1.3333334, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3333334, y: 1.125}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
+--- !u!95 &-449528317255751831
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993631426657387342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c18828b588c3bdf46a6589f3f31882ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &6461792469762961233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5415875754582727228}
+  m_Layer: 0
+  m_Name: BulletPosR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5415875754582727228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6461792469762961233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.74, y: -1.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4124441446578919247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7880306279802627744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3134805147192612916}
+  m_Layer: 0
+  m_Name: BulletPosL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3134805147192612916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7880306279802627744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.74, y: -1.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4124441446578919247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

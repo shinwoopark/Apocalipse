@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BossC : MonoBehaviour
 {
-    public GameObject Projectile_gb, Projectile2_gb, Projectile3_gb, Projectile4_gb;
+    public GameObject Projectile_gb, Projectile2_gb, Projectile3_gb, Projectile4_gb, Bomb;
     public Transform BulletPos1, BulletPos2;
     public float MoveSpeed = 2.0f;
     public float MoveDistance = 5.0f;
@@ -48,8 +49,19 @@ public class BossC : MonoBehaviour
             }
         }
     }
-    public void ShootProjectile(Vector3 position, Vector3 direction, int Bullet, float projectileMoveSpeed)    //ÃÑ¾Ë ¹ß»ç
+    public void ShootProjectile(Vector3 position, Vector3 direction, int Bullet, float projectileMoveSpeed)
     {
+        if (Bullet == 4)
+        {
+            GameObject instance = Instantiate(Projectile4_gb, position, Quaternion.identity);
+            Projectile projectile = instance.GetComponent<Projectile>();
+
+            if (projectile != null)
+            {
+                projectile.MoveSpeed = projectileMoveSpeed;
+                projectile.SetDirection(direction.normalized);
+            }
+        }
         if (Bullet == 3)
         {
             GameObject instance = Instantiate(Projectile3_gb, position, Quaternion.identity);
@@ -104,20 +116,17 @@ public class BossC : MonoBehaviour
     private void Attack1()
     {
         Vector3 playerDirection1 = (PlayerPosition() - BulletPos1.position).normalized;
-        ShootProjectile(BulletPos1.position, playerDirection1, 1, 10);
+        ShootProjectile(BulletPos1.position, playerDirection1, 4, 7.5f);
         Vector3 playerDirection2 = (PlayerPosition() - BulletPos2.position).normalized;
-        ShootProjectile(BulletPos2.position, playerDirection2, 1, 10);
+        ShootProjectile(BulletPos2.position, playerDirection2, 4, 7.5f);
     }
     private void Attack2()
     {
-        Vector3 playerDirection1 = (PlayerPosition() - BulletPos1.position).normalized;
-        ShootProjectile(BulletPos1.position, playerDirection1, 1, 2.5f);
-        Vector3 playerDirection2 = (PlayerPosition() - BulletPos2.position).normalized;
-        ShootProjectile(BulletPos2.position, playerDirection2, 1, 2.5f);
+        Instantiate(Bomb, PlayerPosition(), Quaternion.identity);
     }
     private void Attack3()
     {
-        int numBullets = 6;
+        int numBullets = 8;
         float angleStep = 360.0f / numBullets;
 
         for (int i = 0; i < numBullets; i++)
@@ -132,7 +141,7 @@ public class BossC : MonoBehaviour
     }
     private void NextPattern()
     {
-        _currentPatternIndex = Random.Range(1, 5);
+        _currentPatternIndex = Random.Range(1, 4);
         switch (_currentPatternIndex)
         {
             case 1:
@@ -142,29 +151,21 @@ public class BossC : MonoBehaviour
                 StartCoroutine(Pattern2());
                 break;
             case 3:
-                StartCoroutine(Pattern3());
-                break;
-            case 4:
-                Pattern4();
+                Pattern3();
                 break;
         }
     }
     private IEnumerator Pattern1()
     {
-        int numBullets = 30;
-        float interval = 0.1f;
-
+        int numBullets = 5;
+        float interval = 0.5f;
         for (int i = 0; i < numBullets; i++)
         {
-            Vector3 playerDirection = (PlayerPosition() - transform.position).normalized;
-            ShootProjectile(transform.position, playerDirection, 1, 5);
+            Instantiate(Bomb, PlayerPosition(), Quaternion.identity);
             yield return new WaitForSeconds(interval);
-            if (i == numBullets - 1)
-            {
-                yield return new WaitForSeconds(_attackCooltime);
-                NextPattern();
-            }
         }
+        yield return new WaitForSeconds(interval);
+        NextPattern();
     }
     private IEnumerator Pattern2()
     {
@@ -177,7 +178,7 @@ public class BossC : MonoBehaviour
             float angle1 = i * angleStep;
             float radian1 = angle1 * Mathf.Deg2Rad;
             Vector3 direction4 = new Vector3(Mathf.Cos(radian1), Mathf.Sin(radian1), 0);
-            ShootProjectile(transform.position, direction4, 2, 5);
+            ShootProjectile(transform.position, direction4, 4, 5);
             yield return new WaitForSeconds(interval);
             if (i == numBullets - 1)
             {
@@ -186,24 +187,7 @@ public class BossC : MonoBehaviour
             }
         }
     }
-    private IEnumerator Pattern3()
-    {
-        int numBullets = 5;
-        float interval = 0.5f;
-
-        for (int i = 0; i < numBullets; i++)
-        {
-            Vector3 playerDirection = (PlayerPosition() - transform.position).normalized;
-            ShootProjectile(transform.position, playerDirection, 3, 5);
-            yield return new WaitForSeconds(interval);
-            if (i == numBullets - 1)
-            {
-                yield return new WaitForSeconds(_attackCooltime);
-                NextPattern();
-            }
-        }
-    }
-    private void Pattern4()
+    private void Pattern3()
     {
         int numBullets = 15;
         float angleStep = 360.0f / numBullets;
@@ -214,7 +198,7 @@ public class BossC : MonoBehaviour
             float angle1 = i * angleStep;
             float radian1 = angle1 * Mathf.Deg2Rad;
             Vector3 direction4 = new Vector3(Mathf.Cos(radian1), Mathf.Sin(radian1), 0);
-            ShootProjectile(transform.position, direction4, 2, 5);
+            ShootProjectile(transform.position, direction4, 2, 7);
         }
     }
     private Vector3 PlayerPosition()

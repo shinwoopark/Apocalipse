@@ -8,13 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2161816209763806153, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7779215486825634471, guid: 5547e92425a5b584ba72bba3566474f0, type: 3}
     - target: {fileID: 1868192518695417263, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -7779215486825634471, guid: 5547e92425a5b584ba72bba3566474f0, type: 3}
     - target: {fileID: 5435012088191417294, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
       propertyPath: m_Name
-      value: EnemyBulletB
+      value: EnemyDBullet
       objectReference: {fileID: 0}
     - target: {fileID: 5435012088191417294, guid: 6a279091775c2e74da46e81f1225a4d1, type: 3}
       propertyPath: m_Layer

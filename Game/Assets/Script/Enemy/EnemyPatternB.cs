@@ -20,7 +20,7 @@ public class EnemyPatternB : MonoBehaviour
 
     void Update()
     {
-        if (Enemy.Freeze == false)
+        if (Enemy.bFreeze == false)
         {
             if (false == _isAttack)
                 Move();
@@ -32,18 +32,17 @@ public class EnemyPatternB : MonoBehaviour
         while (true)
         {
 
-            if (Enemy.Freeze)
+            if (Enemy.bFreeze)
             {
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }
             yield return new WaitForSeconds(1f);
 
-            GameObject manager = GameObject.Find("Managers");
-            PlayerCharacter character = manager.GetComponent<GameManager>().PlayerCharacter;
+            GameObject player_gb = GameObject.Find("PlayerCharacter");
+            PlayerCharacter character = player_gb.GetComponent<PlayerCharacter>();
             if (character is null)
             {
-                Debug.Log("Player is null");
                 break;
             }
 

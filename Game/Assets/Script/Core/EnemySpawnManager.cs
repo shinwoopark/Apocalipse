@@ -9,8 +9,11 @@ public class EnemySpawnManager : BaseManager
     public float CoolDownTime;
     public int MaxSpawnEnemyCount;
 
-    private int _spawnCount = 0;
     public int BossSpawnCount = 10;
+    private int _enemyCount;
+    private int _choseEnemy;
+    private int _choseEnemySpawnPos1, _choseEnemySpawnPos2, _choseEnemySpawnPos3, _choseEnemySpawnPos4;
+    private int usedEnemySpawnPos;
 
     private bool _bspawnBoss = false;
 
@@ -26,7 +29,40 @@ public class EnemySpawnManager : BaseManager
     {
         while (!_bspawnBoss)
         {
+            if (BossSpawnCount == 0)
+            {
+                
+            }
+            else
+            {
+                if (BossSpawnCount >= 4)
+                {
+                    _choseEnemySpawnPos1 = 0;
+                    _enemyCount = Random.Range(1, 5);
+                    for (int i = 0; i < _enemyCount; i++)
+                    {
+                        _choseEnemy = Random.Range(1, 5);
+                        _choseEnemySpawnPos1 = Random.Range(1, 5);
+                        SpawnEnemy(Enemys[_choseEnemy], EnemySpawnTrasnform[_choseEnemySpawnPos1]);
+                        if (i > 0)
+                        {
+                            while(_choseEnemySpawnPos1 == usedEnemySpawnPos)
+                            {
+                                _choseEnemySpawnPos1 = Random.Range(1, 5);
+                            }
+                        }
+                        usedEnemySpawnPos = _choseEnemySpawnPos1;
+                    }
+                }
+                
+            }
+
+            
             yield return null;
         }
+    }
+    private void SpawnEnemy(GameObject enemy, Transform transform)
+    {
+        Instantiate(enemy, transform.position, Quaternion.identity);
     }
 }

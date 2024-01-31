@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public ItemManager ItemManager;
 
     public Canvas StageResultCanvas;
+    public GameObject StageResultCanvas_gb;
     public TMP_Text CurrentScoreText;
     public TMP_Text TimeText;
 
@@ -35,7 +36,10 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         else
-            Destroy(this.gameObject);
+        {
+            //Destroy(this.gameObject);
+        }
+            
     }
 
     public void InitInstance()
@@ -61,6 +65,11 @@ public class GameManager : MonoBehaviour
         MapManager.Init(this);
     }
 
+    private void Update()
+    {
+        Debug.Log("??");
+    }
+
     public void GameStart()
     {
         SceneManager.LoadScene("Stage1");
@@ -72,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     public void StageClear()
     {
+        Debug.Log("Clear");
         AddScore(500);
 
         float gameStartTime = GameInstance.instance.GameStartTime;
@@ -79,7 +89,7 @@ public class GameManager : MonoBehaviour
 
         int elapsedTime = Mathf.FloorToInt(Time.time - gameStartTime);
 
-        StageResultCanvas.gameObject.SetActive(true);
+        StageResultCanvas_gb.SetActive(true);
         CurrentScoreText.text = "CurrentScore : " + score;
         TimeText.text = "ElapsedTime : " + elapsedTime;
 
@@ -98,9 +108,12 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Stage2");
                 GameInstance.instance.CurrentStageLevel = 2;
                 break;
-
             case 2:
-                SceneManager.LoadScene("Result");
+                SceneManager.LoadScene("Stage3");
+                GameInstance.instance.CurrentStageLevel = 3;
+                break;
+            case 3:
+                SceneManager.LoadScene("End");
                 break;
         }
     }
@@ -108,44 +121,5 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         GameInstance.instance.Score += score;
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.F1))
-        {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject obj in enemies)
-            {
-                Enemy enemy = obj?.GetComponent<Enemy>();
-                enemy?.Dead();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.F2))
-        {
-            PlayerCharacter.CurrentWeaponLevel = 5;
-            GameInstance.instance.CurrentPlayerWeaponLevel = PlayerCharacter.CurrentWeaponLevel;
-        }
-
-        if (Input.GetKeyUp(KeyCode.F3))
-        {
-            PlayerCharacter.InitskillCoolDown();
-        }
-
-        if (Input.GetKeyUp(KeyCode.F4))
-        {
-            PlayerCharacter.GetComponent<PlayerHPSystem>().InitHealth();
-        }
-
-        if (Input.GetKeyUp(KeyCode.F5))
-        {
-            PlayerCharacter.GetComponent<PlayerFuelSystem>().InitFuel();
-        }
-
-        if (Input.GetKeyUp(KeyCode.F6))
-        {
-            StageClear();
-        }
-
     }
 }

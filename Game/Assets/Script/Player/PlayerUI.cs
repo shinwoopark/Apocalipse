@@ -18,6 +18,8 @@ public class PlayerUI : MonoBehaviour
     public Image[] HealthImages = new Image[3];
     public Image RepairSkill;
     public Image BombSkill;
+    public Image FreezeSkill;
+    public Image GuardSkill;
     public Slider FuelSlider;
 
     public TextMeshProUGUI SkillCooldownNoticeText;
@@ -36,7 +38,7 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHealth()
     {
-        int health = GameManager.Instance.PlayerCharacter.GetComponent<PlayerHPSystem>().Health;   //Hp
+        int health = GameManager.Instance.PlayerCharacter.GetComponent<PlayerHPSystem>().Health;
 
         for (int i = 0; i < HealthImages.Length; i++)
         {

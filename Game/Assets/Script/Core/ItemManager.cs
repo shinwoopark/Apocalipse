@@ -18,10 +18,13 @@ public class BaseItem : MonoBehaviour
         transform.Translate(new Vector3(0, -0.005f, 0f));
     }
 
-    public virtual void OnGetItem(GameManager gameManager) { }
+    public virtual void OnGetItem(GameManager gameManager)
+    {
+
+    }
 }
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : BaseManager
 {
     public List<Item> Items = new List<Item>();
     public void SpawnItem(EnumTypes.ItemName name, Vector3 position)
@@ -32,8 +35,6 @@ public class ItemManager : MonoBehaviour
         {
             GameObject itemPrefab = foundItem.Prefab;
             GameObject inst = Instantiate(itemPrefab, position, Quaternion.identity);
-
-            inst.GetComponent<Animator>().SetInteger("ItemIndex", (int)name);
         }
     }
 
@@ -47,7 +48,7 @@ public class ItemManager : MonoBehaviour
 
         if (Random.Range(min, max) == min)
         {
-            int randomInt = Random.Range(0, 4);
+            int randomInt = Random.Range(0, 5);
             EnumTypes.ItemName itemName = (EnumTypes.ItemName)randomInt;
             SpawnItem(itemName, position);
         }
@@ -55,7 +56,7 @@ public class ItemManager : MonoBehaviour
 
     public void SpawnRandomItem(Vector3 position)
     {
-        int randomInt = Random.Range(0, 4);
+        int randomInt = Random.Range(0, 5);
         EnumTypes.ItemName itemName = (EnumTypes.ItemName)randomInt;
         SpawnItem(itemName, position);
     }

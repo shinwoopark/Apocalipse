@@ -18,7 +18,7 @@ public class EnemyPatternC : MonoBehaviour
 
     void Update()
     {
-        if (Enemy.Freeze == false)
+        if (Enemy.bFreeze == false)
         {
             MoveUpdate();
             if (transform.position.y <= _originPosition)
@@ -36,13 +36,17 @@ public class EnemyPatternC : MonoBehaviour
 
     void AttackUpdate()
     {
-        if (Enemy.Freeze == false)
+        if (Enemy.bFreeze == false)
         {
             if (_attack)
             {
                 Invoke("AttackUpdate", 1.5f);
-                GameObject manager = GameObject.Find("Managers");
-                PlayerCharacter character = manager.GetComponent<GameManager>().PlayerCharacter;
+                GameObject player_gb = GameObject.Find("PlayerCharacter");
+                PlayerCharacter character = player_gb.GetComponent<PlayerCharacter>();
+                if (character is null)
+                {
+                    return;
+                }
                 Vector3 playerPos = character.GetComponent<Transform>().position;
                 Vector3 direction = playerPos - transform.position;
                 direction.Normalize();
