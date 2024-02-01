@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class AddOnBullet : MonoBehaviour
 {
@@ -20,41 +21,24 @@ public class AddOnBullet : MonoBehaviour
     }
     private void Update()
     {
-        FindTarget();
+        
         FollowTarGet();
     }
     private void FollowTarGet()
     {
-        _targetPos = (_target.transform.position - transform.position).normalized;
-        _rigidbody2D.velocity = new Vector2(_targetPos.x * _speed, _targetPos.y * _speed);
+        if (_target == null)
+        {
+            FindTarget();
+        }
+        else if(_target != null)
+        {
+            _targetPos = (_target.transform.position - transform.position).normalized;
+            _rigidbody2D.velocity = new Vector2(_targetPos.x * _speed, _targetPos.y * _speed);
+        } 
     }
     private void FindTarget()
     {
-        
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (enemies.Length == 0)
-        {
-            return;
-        }
-        else
-        {
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                Transform enemiesPos = enemies[i].GetComponent<Transform>();
-                float distance = Vector3.Distance(transform.position, enemiesPos.position);
-                Mathf.Abs(distance);
-                if (i == 0)
-                {
-                    _near = distance;
-                    _target.transform.position = enemiesPos.position;
-                }
-                else if (_near > distance)
-                {
-                    _target.transform.position = enemiesPos.position;
-                }
-            }
-        }
+        _target = GameObject.FindWithTag("Enemy");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

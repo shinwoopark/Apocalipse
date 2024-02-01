@@ -22,7 +22,7 @@ public class EnemyPatternB : MonoBehaviour
     {
         if (Enemy.bFreeze == false)
         {
-            if (false == _isAttack)
+            if (!_isAttack)
                 Move();
         }
     }
@@ -54,6 +54,13 @@ public class EnemyPatternB : MonoBehaviour
             projectile.GetComponent<Projectile>().SetDirection(direction);
             projectile.GetComponent<Projectile>().MoveSpeed = ProjectileMoveSpeed;
             _isAttack = true;
+            if (GameInstance.instance.CurrentStageLevel == 3)
+            {
+                yield return new WaitForSeconds(1);
+                projectile.GetComponent<Projectile>().SetDirection(direction);
+                projectile.GetComponent<Projectile>().MoveSpeed = ProjectileMoveSpeed;
+            }
+           
 
             yield return new WaitForSeconds(AttackStopTime);
 

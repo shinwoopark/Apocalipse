@@ -74,6 +74,7 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "GuardBullet":
+                if (!gameObject.CompareTag("PlayerBullet"))
                 Destroy(gameObject);
                 break;
             case "Enemy":

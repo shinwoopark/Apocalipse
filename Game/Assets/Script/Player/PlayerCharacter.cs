@@ -9,6 +9,8 @@ public class PlayerCharacter : GameManager
 
     public GameManager GameManager;
 
+    public PlayerUI PlayerUI;
+
     private Vector2 _moveInput;
     public float MoveSpeed;
 
@@ -31,6 +33,8 @@ public class PlayerCharacter : GameManager
     public Transform[] AddOnTransform;
     public GameObject AddOnPrefab;
     [HideInInspector] public int MaxAddOnCount = 2;
+
+    private bool _binvincibility = false;
 
     private void Start()
     {
@@ -93,10 +97,29 @@ public class PlayerCharacter : GameManager
         {
             StageClear();
         }
+
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            Invincibility();
+        }
+
         UpdateMovement();
         UpdateSkillInput();
     }
 
+    private void Invincibility()
+    {
+        if (_binvincibility)
+        {
+            gameObject.layer = 0;
+            return;
+        }
+        if(!_binvincibility)
+        {
+            gameObject.layer = 14;
+            return;
+        }
+    }
     public void InitskillCoolDown()
     {
         foreach (var skill in Skills.Values)
@@ -118,11 +141,11 @@ public class PlayerCharacter : GameManager
     }
     private void UpdateSkillInput()
     {
-        if (Input.GetKey(KeyCode.Z)) ActivateSkill(EnumTypes.PlayerSkill.Primary);
-        if (Input.GetKeyUp(KeyCode.X)) ActivateSkill(EnumTypes.PlayerSkill.Repair);
-        if (Input.GetKeyUp(KeyCode.C)) ActivateSkill(EnumTypes.PlayerSkill.Bomb);
-        if (Input.GetKeyUp(KeyCode.V)) ActivateSkill(EnumTypes.PlayerSkill.Freeze);
-        if (Input.GetKeyUp(KeyCode.B)) ActivateSkill(EnumTypes.PlayerSkill.Guard);
+        if (Input.GetKey(KeyCode.Z)) ActivateSkill(EnumTypes.PlayerSkill.Primary, true);
+        if (Input.GetKeyUp(KeyCode.X)) ActivateSkill(EnumTypes.PlayerSkill.Repair, false);
+        if (Input.GetKeyUp(KeyCode.C)) ActivateSkill(EnumTypes.PlayerSkill.Bomb, false);
+        if (Input.GetKeyUp(KeyCode.V)) ActivateSkill(EnumTypes.PlayerSkill.Freeze, false);
+        if (Input.GetKeyUp(KeyCode.B)) ActivateSkill(EnumTypes.PlayerSkill.Guard, false);
     }
 
     private void InitializeSkills()
@@ -149,7 +172,7 @@ public class PlayerCharacter : GameManager
             Skills.Add(skillType, skillComponent);
         }
     }
-    private void ActivateSkill(EnumTypes.PlayerSkill skillType)
+    private void ActivateSkill(EnumTypes.PlayerSkill skillType, bool bprimary)
     {
         if (Skills.ContainsKey(skillType))
         {
@@ -157,9 +180,20 @@ public class PlayerCharacter : GameManager
             {
                 Skills[skillType].Activate();
             }
+            else
+            {
+                if(bprimary)
+                {
+                    return;
+                }
+                else
+                {
+                    PlayerUI.NoticeSkillCooldown(skillType);
+                }               
+            }
         }
     }
-    public void SetInvincibility(bool invin)
+    public void SetInvincibility(bool invin,float inviTime)
     {
         if (invin)
         {
@@ -168,16 +202,16 @@ public class PlayerCharacter : GameManager
                 StopCoroutine(invincibilityCoroutine);
             }
 
-            invincibilityCoroutine = StartCoroutine(InvincibilityCoroutine());
+            invincibilityCoroutine = StartCoroutine(InvincibilityCoroutine(inviTime));
         }
     }
 
-    private IEnumerator InvincibilityCoroutine()
+    private IEnumerator InvincibilityCoroutine(float inviTime)
     {
         binvincibility = true;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
-        float invincibilityDuration = 3f;
+        float invincibilityDuration = inviTime;
         spriteRenderer.color = new Color(1, 1, 1, 0.5f);
 
         yield return new WaitForSeconds(invincibilityDuration);

@@ -9,7 +9,6 @@ public class GuardPos : MonoBehaviour
 
     public void ActiveSkill()
     {
-        Debug.Log("!");
         for (int i = 0; i < 360; i += 60)
         {
             float angle = i * Mathf.Deg2Rad;

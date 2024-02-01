@@ -52,6 +52,8 @@ MonoBehaviour:
   Health: 2
   AttackDamage: 1
   bFreeze: 0
+  SpriteRenderer: {fileID: 5191652939012154025}
+  Red: {r: 0.7647059, g: 0.18431373, b: 0.18431373, a: 1}
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &5260030392208133638
 MonoBehaviour:

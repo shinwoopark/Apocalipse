@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyPatternA : MonoBehaviour
 {
+    public static GameInstance Instance;
     public float MoveSpeed;
     public float Amplitude;
 
@@ -17,6 +18,11 @@ public class EnemyPatternA : MonoBehaviour
 
     void Update()
     {
+        if (GameInstance.instance.CurrentStageLevel == 3)
+        {
+            Amplitude = 1.5f;
+            MoveSpeed = 4;
+        }
         float verticalMovement = MoveSpeed * Time.deltaTime;
 
         if (movingUp && transform.position.x < startPosition.x + Amplitude)

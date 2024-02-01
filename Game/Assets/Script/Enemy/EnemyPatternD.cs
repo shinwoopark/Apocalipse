@@ -18,12 +18,29 @@ public class EnemyPatternD : MonoBehaviour
             PlayerPosUpdate();
             MoveUpdate();
         }
+        if (GameInstance.instance.CurrentStageLevel == 3)
+        {
+            MoveSpeed = 7;
+        }
     }
     public void Attack()
     {
         if (Enemy.bFreeze == false)
         {
             Vector3 position = transform.position;
+            if(GameInstance.instance.CurrentStageLevel == 3)
+            {
+                for (int i = 0; i < 360; i += 40)
+                {
+                    float angle = i * Mathf.Deg2Rad;
+                    Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0);
+
+                    ShootProjectile(position, direction);
+                }
+
+                Destroy(gameObject);
+                return;
+            }
             for (int i = 0; i < 360; i += 60)
             {
                 float angle = i * Mathf.Deg2Rad;

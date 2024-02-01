@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlayerHPSystem : MonoBehaviour
 {
+    public PlayerCharacter PlayerCharacter;
     public int Health;
     public int MaxHealth;
 
@@ -37,13 +38,36 @@ public class PlayerHPSystem : MonoBehaviour
         }
     }
 
+    private void Invincibility()
+    {
+        PlayerCharacter.SetInvincibility(true, 0.5f);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Meteor")
+            && !GameManager.Instance.PlayerCharacter.bInvincibility
+            && !GameManager.Instance.bStageCleared)
+        {
+            Health -= 1;
+            Invincibility();
+            StartCoroutine(HitFlick());
+            if (collision.gameObject.layer != 13)
+            {
+                Destroy(collision.gameObject);
+            }
+
+            if (Health <= 0)
+            {
+                GameManager.Instance.PlayerCharacter.DeadProcess();
+            }
+        }
         if (collision.gameObject.CompareTag("Enemy")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
+            Invincibility();
             StartCoroutine(HitFlick());
             if (collision.gameObject.layer != 13)
             {
@@ -60,6 +84,7 @@ public class PlayerHPSystem : MonoBehaviour
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
+            Invincibility();
             StartCoroutine(HitFlick());
 
             Destroy(collision.gameObject);
@@ -74,6 +99,7 @@ public class PlayerHPSystem : MonoBehaviour
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 1;
+            Invincibility();
             StartCoroutine(HitFlick());
 
             Destroy(collision.gameObject);
@@ -88,6 +114,7 @@ public class PlayerHPSystem : MonoBehaviour
             && !GameManager.Instance.bStageCleared)
         {
             Health -= 2;
+            Invincibility();
             StartCoroutine(HitFlick());
 
             if (Health <= 0)

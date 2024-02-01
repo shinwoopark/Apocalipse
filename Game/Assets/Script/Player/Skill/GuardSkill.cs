@@ -16,6 +16,11 @@ public class GuardSkill : BaseSkill
     public override void Activate()
     {
         base.Activate();
+        GameObject[] guardBullets = GameObject.FindGameObjectsWithTag("GuardBullet");
+        foreach (GameObject obj in guardBullets)
+        {
+            Destroy(obj);
+        }
         GuardPos.ActiveSkill();
     }
 }

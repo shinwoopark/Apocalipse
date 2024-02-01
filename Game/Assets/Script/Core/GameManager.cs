@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
 
     public void StageClear()
     {
-        Debug.Log("Clear");
         AddScore(500);
 
         float gameStartTime = GameInstance.instance.GameStartTime;

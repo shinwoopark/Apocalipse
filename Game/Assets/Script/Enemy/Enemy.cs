@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public float Health = 3f;
+    public float Health;
     public float AttackDamage = 1f;
     bool bIsDead = false;
     public bool bFreeze = false;
     private float _freezingTime;
-
+    private int _phase = 1;
+    public SpriteRenderer SpriteRenderer;
+    public Color Red;
     public GameObject ExplodeFX;
 
     void Start()
     {
-
+        Phase();
     }
 
     void Update()
@@ -28,6 +30,16 @@ public class Enemy : MonoBehaviour
                 _freezingTime = 0;
                 bFreeze = false;
             }
+        }
+    }
+
+    public void Phase()
+    {
+        if (GameInstance.instance.CurrentStageLevel == 3)
+        {
+            _phase = 3;
+            SpriteRenderer.color = Red;
+            Health *= 2;
         }
     }
 
@@ -97,7 +109,14 @@ public class Enemy : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
 
-            GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            if(_phase != 3)
+            {
+                GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+            else if(_phase == 3)
+            {
+                GetComponentInChildren<SpriteRenderer>().color = Red;
+            }
 
             yield return new WaitForSeconds(0.1f);
 

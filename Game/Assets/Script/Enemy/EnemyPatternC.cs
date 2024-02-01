@@ -31,7 +31,10 @@ public class EnemyPatternC : MonoBehaviour
                 }
             }
         }
-
+        if(GameInstance.instance.CurrentStageLevel == 3)
+        {
+            ProjectileMoveSpeed = 12;
+        }
     }
 
     void AttackUpdate()

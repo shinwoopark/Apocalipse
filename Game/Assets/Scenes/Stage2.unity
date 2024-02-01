@@ -207,6 +207,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 8015599428517756141, guid: 58d418e555454cf4a8a56132eaa31a75, type: 3}
+      propertyPath: BossSpawnTransform
+      value: 
+      objectReference: {fileID: 372017879}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -256,6 +260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bcfcc9bc283ecc47ad232233890d31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &372017879 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3354116893168873109, guid: 58d418e555454cf4a8a56132eaa31a75, type: 3}
+  m_PrefabInstance: {fileID: 372017874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &555726801
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +507,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4841853903796249735, guid: 0cfa2aa3911c9da489772672c696e405, type: 3}
+      propertyPath: MaxHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841853903796249735, guid: 0cfa2aa3911c9da489772672c696e405, type: 3}
+      propertyPath: PlayerCharacter
+      value: 
+      objectReference: {fileID: 1155994278}
     - target: {fileID: 6014971212220894442, guid: 0cfa2aa3911c9da489772672c696e405, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -739,6 +756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageResultCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8011926463346499586, guid: 7246198350ae6a04c848d056ed3ae212, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -884,6 +905,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2418867557808184255, guid: ee590919adfc860479ba0f49b9354c92, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4891686916221085293, guid: ee590919adfc860479ba0f49b9354c92, type: 3}
+      propertyPath: SkillCooldownNoticeText
+      value: 
+      objectReference: {fileID: 1956447994}
     - target: {fileID: 5483045925796804543, guid: ee590919adfc860479ba0f49b9354c92, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -973,6 +1002,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee590919adfc860479ba0f49b9354c92, type: 3}
+--- !u!114 &1956447994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 321746668024093704, guid: ee590919adfc860479ba0f49b9354c92, type: 3}
+  m_PrefabInstance: {fileID: 1956447993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

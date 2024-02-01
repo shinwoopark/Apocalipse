@@ -13,6 +13,7 @@ TagManager:
   - BombProjectile
   - EnemyBomb
   - Meteor
+  - GuardBullet
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - EnemyDetect
   - PlayerBullet
   - Boss
-  - 
+  - Invincibility
   - 
   - 
   - 

@@ -7,6 +7,7 @@ public class EnemySpawnManager : BaseManager
     public GameObject[] Enemys;
     public GameObject Meteor;
     public Transform[] EnemySpawnTransform;
+    public Transform BossSpawnTransform;
     public float CoolDownTime = 3;
     private float _bossCoolDownTime = 3;
     public int MaxSpawnEnemyCount;
@@ -20,6 +21,10 @@ public class EnemySpawnManager : BaseManager
 
     private void Start()
     {
+        if (GameInstance.instance == null)
+        {
+            return;
+        }
         if (GameInstance.instance.CurrentStageLevel == 1)
         {
             _bossSpawnCount = 15;
@@ -52,17 +57,17 @@ public class EnemySpawnManager : BaseManager
                 yield return new WaitForSeconds(_bossCoolDownTime);
                 if (GameInstance.instance.CurrentStageLevel == 1)
                 {
-                    Instantiate(Bosses[0], new Vector3(EnemySpawnTransform[Random.Range(1,5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    Instantiate(Bosses[0], new Vector3(BossSpawnTransform.position.x, BossSpawnTransform.position.y + 1, 0f), Quaternion.identity);
                     _bSpawnBoss = true;
                 }
                 else if (GameInstance.instance.CurrentStageLevel == 2)
                 {
-                    Instantiate(Bosses[1], new Vector3(EnemySpawnTransform[Random.Range(1, 5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    Instantiate(Bosses[1], new Vector3(BossSpawnTransform.position.x, BossSpawnTransform.position.y + 1, 0f), Quaternion.identity);
                     _bSpawnBoss = true;
                 }
                 else if (GameInstance.instance.CurrentStageLevel == 3)
                 {
-                    Instantiate(Bosses[2], new Vector3(EnemySpawnTransform[Random.Range(1, 5)].position.x, EnemySpawnTransform[1].position.y + 1, 0f), Quaternion.identity);
+                    Instantiate(Bosses[2], new Vector3(BossSpawnTransform.position.x, BossSpawnTransform.position.y + 1, 0f), Quaternion.identity);
                     _bSpawnBoss = true;
                 }
             }

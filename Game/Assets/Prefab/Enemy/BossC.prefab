@@ -50,9 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5169203327816c74fa993160255139a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 300
+  Health: 200
   AttackDamage: 1
   bFreeze: 0
+  SpriteRenderer: {fileID: 7322651759219751284}
+  Red: {r: 0.7647059, g: 0.18431373, b: 0.18431373, a: 1}
   ExplodeFX: {fileID: 3691051425906373532, guid: c4aaf061030bda747a9602dffc91d85e, type: 3}
 --- !u!114 &-546186066617284223
 MonoBehaviour:
@@ -117,7 +119,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 2192450021786810173, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
-  m_Color: {r: 0.764151, g: 0.18382876, b: 0.18382876, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
