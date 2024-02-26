@@ -13,9 +13,9 @@ public class Item
 
 public class BaseItem : MonoBehaviour
 {
-    protected void Update()
+    protected void FixedUpdate()
     {
-        transform.Translate(new Vector3(0, -0.005f, 0f));
+        transform.Translate(new Vector3(0, -0.05f, 0f));
     }
 
     public virtual void OnGetItem(GameManager gameManager)

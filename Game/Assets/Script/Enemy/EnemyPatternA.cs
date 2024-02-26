@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyPatternA : MonoBehaviour
 {
     public static GameInstance Instance;
+    public Enemy Enemy;
     public float MoveSpeed;
     public float Amplitude;
 
@@ -25,19 +26,22 @@ public class EnemyPatternA : MonoBehaviour
         }
         float verticalMovement = MoveSpeed * Time.deltaTime;
 
-        if (movingUp && transform.position.x < startPosition.x + Amplitude)
+        if (!Enemy.bFreeze)
         {
-            transform.position += new Vector3(verticalMovement, 0f, 0f);
-        }
-        else if (!movingUp && transform.position.x > startPosition.x - Amplitude)
-        {
-            transform.position -= new Vector3(verticalMovement, 0f, 0f);
-        }
-        else
-        {
-            movingUp = !movingUp;
-        }
+            if (movingUp && transform.position.x < startPosition.x + Amplitude)
+            {
+                transform.position += new Vector3(verticalMovement, 0f, 0f);
+            }
+            else if (!movingUp && transform.position.x > startPosition.x - Amplitude)
+            {
+                transform.position -= new Vector3(verticalMovement, 0f, 0f);
+            }
+            else
+            {
+                movingUp = !movingUp;
+            }
 
-        transform.position -= new Vector3(0f, MoveSpeed * Time.deltaTime, 0f);
+            transform.position -= new Vector3(0f, MoveSpeed * Time.deltaTime, 0f);
+        }    
     }
 }

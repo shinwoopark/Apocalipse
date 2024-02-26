@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyPatternD : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public Enemy Enemy;
     public float MoveSpeed;
     public GameObject Projectile;
@@ -11,6 +14,11 @@ public class EnemyPatternD : MonoBehaviour
 
     private Vector3 _direction;
 
+    private void Start()
+    {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+    }
     void Update()
     {
         if (Enemy.bFreeze == false)
@@ -25,6 +33,7 @@ public class EnemyPatternD : MonoBehaviour
     }
     public void Attack()
     {
+        SoundManager.PlaySFX(10);
         if (Enemy.bFreeze == false)
         {
             Vector3 position = transform.position;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7322651759219751284}
   - component: {fileID: 315804207334494188}
   - component: {fileID: 4897757062931587083}
+  - component: {fileID: 3007197153447578420}
   m_Layer: 13
   m_Name: BossC
   m_TagString: Enemy
@@ -50,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5169203327816c74fa993160255139a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundManager: {fileID: 0}
+  SoundManager_gb: {fileID: 0}
   Health: 200
   AttackDamage: 1
   bFreeze: 0
@@ -68,6 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb516911656db4e48b1e21f0422d2399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundManager: {fileID: 0}
+  SoundManager_gb: {fileID: 0}
   Projectile_gb: {fileID: 8637283091417078085, guid: 0cc12578a929cd94da28364c6ef6a1d7, type: 3}
   Projectile2_gb: {fileID: 759345171409561039, guid: ac7d8fef82c40ac41a169215dbc81b0b, type: 3}
   Projectile3_gb: {fileID: 759345171409561039, guid: 64213087e66c8ff4ab2fc545f3f4a7dc, type: 3}
@@ -201,6 +206,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
+--- !u!114 &3007197153447578420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993631426657387342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f53c5c85f610f3499ee290421609b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 5729154975549280941, guid: 14e09ebd720757e4e8f0bb4b82fcdf3e, type: 3}
+  BossNumber: 3
 --- !u!1 &2862266628519282473
 GameObject:
   m_ObjectHideFlags: 0

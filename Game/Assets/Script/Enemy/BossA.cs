@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossA : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public GameObject Projectile_gb, Projectile2_gb;
     public float ProjectileMoveSpeed = 5.0f;
     public float FireRate = 2.0f;
@@ -18,6 +21,9 @@ public class BossA : MonoBehaviour
 
     private void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         _originPosition = transform.position;
         StartCoroutine(MoveDownAndStartPattern());
     }
@@ -136,7 +142,7 @@ public class BossA : MonoBehaviour
     {
         int numBullets1 = 30;
         float angleStep1 = 360.0f / numBullets1;
-
+        SoundManager.PlaySFX(13);
         for (int i = 0; i < numBullets1; i++)
         {
             float angle1 = i * angleStep1;
@@ -149,7 +155,7 @@ public class BossA : MonoBehaviour
 
     private void Pattern2()
     {
-
+        SoundManager.PlaySFX(13);
         int numBullets2 = 12;
         float angleStep2 = 360.0f / numBullets2;
 
@@ -172,6 +178,7 @@ public class BossA : MonoBehaviour
 
         for (int i = 0; i < numBullets; i++)
         {
+            SoundManager.PlaySFX(13);
             Vector3 playerDirection = (PlayerPosition() - transform.position).normalized;
             ShootProjectile(transform.position, playerDirection, 1);
             yield return new WaitForSeconds(interval);
@@ -183,7 +190,7 @@ public class BossA : MonoBehaviour
         int numBullets3 = 10;
         float angleStep3 = 360.0f / numBullets3;
         float radius = 2.0f;
-
+        SoundManager.PlaySFX(13);
         for (int i = 0; i < numBullets3; i++)
         {
             float angle3 = i * angleStep3;
@@ -205,6 +212,7 @@ public class BossA : MonoBehaviour
 
         for (int i = 0; i < numBullets; i++)
         {
+            SoundManager.PlaySFX(13);
             Vector3 playerDirection = (PlayerPosition() - transform.position).normalized;
             ShootProjectile(transform.position, playerDirection, 1);
             yield return new WaitForSeconds(interval);
@@ -214,6 +222,7 @@ public class BossA : MonoBehaviour
 
     private void Pattern6()
     {
+        SoundManager.PlaySFX(13);
         int numBullets4 = 15;
         float angleStep4 = 360.0f / numBullets4;
 

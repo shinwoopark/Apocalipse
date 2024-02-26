@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class GuardSkill : BaseSkill
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public GameObject GuardPos_gb;
     public GuardPos GuardPos;
 
     private void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
         GuardPos_gb = GameObject.Find("GuardPos");
         GuardPos = GuardPos_gb.GetComponent<GuardPos>();
     }
@@ -22,5 +27,6 @@ public class GuardSkill : BaseSkill
             Destroy(obj);
         }
         GuardPos.ActiveSkill();
+        SoundManager.PlaySFX(4);
     }
 }

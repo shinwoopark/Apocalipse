@@ -11,7 +11,7 @@ public class GuardBullet : MonoBehaviour
         Player_gb = GameObject.Find("PlayerCharacter");
         Player_tr = Player_gb.GetComponent<Transform>();
     }
-    void Update()
+    void FixedUpdate()
     {
         MoveUpdate();
     }
@@ -38,6 +38,6 @@ public class GuardBullet : MonoBehaviour
     }
     private void MoveUpdate()
     {
-        transform.RotateAround(Player_tr.position, Vector3.back, 1);
+        transform.RotateAround(Player_tr.position, Vector3.back, 2);
     }
 }

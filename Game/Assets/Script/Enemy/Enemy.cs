@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public float Health;
     public float AttackDamage = 1f;
     bool bIsDead = false;
@@ -17,6 +20,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
         Phase();
     }
 
@@ -47,10 +52,11 @@ public class Enemy : MonoBehaviour
     {
         if (!bIsDead)
         {
-            if (gameObject.tag == "Boss")
+            if (gameObject.layer == 13)
             {
                 Instantiate(ExplodeFX, transform.position, Quaternion.identity);
                 GameManager.Instance.ItemManager.SpawnRandomItem(transform.position);
+                SoundManager.PlaySFX(12);
                 Destroy(gameObject);
                 bIsDead = true;
                 return;
@@ -62,16 +68,11 @@ public class Enemy : MonoBehaviour
             bIsDead = true;
         }
     }
-    private void BossCHp()
+
+    public void DropItem()
     {
-        int phase = 1;
-        if (gameObject.name == "BossC")
-        {
-            if(phase == 1)
-            {
-                phase = 2;
-            }
-        }
+        Instantiate(ExplodeFX, transform.position, Quaternion.identity);
+        GameManager.Instance.ItemManager.SpawnRandomItem(transform.position);
     }
     public void Freezing()
     {

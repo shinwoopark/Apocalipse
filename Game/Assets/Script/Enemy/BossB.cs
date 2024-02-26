@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossB : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public GameObject Projectile_gb, Projectile2_gb, Projectile3_gb;
     public Transform BulletPos1, BulletPos2;
     public float MoveSpeed = 2.0f;
@@ -15,6 +18,9 @@ public class BossB : MonoBehaviour
     private bool _movingRight = true;
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         Invoke("BasicAttack", 1);
         Invoke("NextPattern", 1.5f);
     }
@@ -103,6 +109,7 @@ public class BossB : MonoBehaviour
     }
     private void Attack1()
     {
+        SoundManager.PlaySFX(14);
         Vector3 playerDirection1 = (PlayerPosition() - BulletPos1.position).normalized;
         ShootProjectile(BulletPos1.position, playerDirection1, 1, 10);
         Vector3 playerDirection2 = (PlayerPosition() - BulletPos2.position).normalized;
@@ -110,6 +117,7 @@ public class BossB : MonoBehaviour
     }
     private void Attack2()
     {
+        SoundManager.PlaySFX(14);
         Vector3 playerDirection1 = (PlayerPosition() - BulletPos1.position).normalized;
         ShootProjectile(BulletPos1.position, playerDirection1, 1, 2.5f);
         Vector3 playerDirection2 = (PlayerPosition() - BulletPos2.position).normalized;
@@ -117,6 +125,7 @@ public class BossB : MonoBehaviour
     }
     private void Attack3()
     {
+        SoundManager.PlaySFX(14);
         int numBullets = 6;
         float angleStep = 360.0f / numBullets;
 
@@ -151,6 +160,7 @@ public class BossB : MonoBehaviour
     }
     private IEnumerator Pattern1()
     {
+        SoundManager.PlaySFX(13);
         int numBullets = 30;
         float interval = 0.1f;
 
@@ -168,6 +178,7 @@ public class BossB : MonoBehaviour
     }
     private IEnumerator Pattern2()
     {
+        SoundManager.PlaySFX(13);
         int numBullets = 15;
         float interval = 0.3f;
         float angleStep = 360.0f / numBullets;
@@ -188,6 +199,7 @@ public class BossB : MonoBehaviour
     }
     private IEnumerator Pattern3()
     {
+        SoundManager.PlaySFX(13);
         int numBullets = 5;
         float interval = 0.5f;
 
@@ -205,6 +217,7 @@ public class BossB : MonoBehaviour
     }
     private void Pattern4()
     {
+        SoundManager.PlaySFX(13);
         int numBullets = 15;
         float angleStep = 360.0f / numBullets;
         Invoke("NextPattern", 1);

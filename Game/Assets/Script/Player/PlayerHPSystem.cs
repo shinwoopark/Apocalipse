@@ -43,13 +43,19 @@ public class PlayerHPSystem : MonoBehaviour
         PlayerCharacter.SetInvincibility(true, 0.5f);
     }
 
+    private void HpDown(int i)
+    {
+        if(!PlayerCharacter.bInvincibilityCheat)
+            Health = Health - i;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Meteor")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
-            Health -= 1;
+            HpDown(1);
             Invincibility();
             StartCoroutine(HitFlick());
             if (collision.gameObject.layer != 13)
@@ -59,14 +65,14 @@ public class PlayerHPSystem : MonoBehaviour
 
             if (Health <= 0)
             {
-                GameManager.Instance.PlayerCharacter.DeadProcess();
+                GameManager.Instance.StartCoroutine(PlayerCharacter.DeadProcess());
             }
         }
         if (collision.gameObject.CompareTag("Enemy")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
-            Health -= 1;
+            HpDown(1);
             Invincibility();
             StartCoroutine(HitFlick());
             if (collision.gameObject.layer != 13)
@@ -76,14 +82,14 @@ public class PlayerHPSystem : MonoBehaviour
             
             if (Health <= 0)
             {
-                GameManager.Instance.PlayerCharacter.DeadProcess();
+                GameManager.Instance.StartCoroutine(PlayerCharacter.DeadProcess());
             }
         }
         if (collision.gameObject.CompareTag("EnemyBullet")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
-            Health -= 1;
+            HpDown(1);
             Invincibility();
             StartCoroutine(HitFlick());
 
@@ -91,14 +97,14 @@ public class PlayerHPSystem : MonoBehaviour
 
             if (Health <= 0)
             {
-                GameManager.Instance.PlayerCharacter.DeadProcess();
+                GameManager.Instance.StartCoroutine(PlayerCharacter.DeadProcess());
             }
         }
         if (collision.gameObject.CompareTag("Boss")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
-            Health -= 1;
+            HpDown(1);
             Invincibility();
             StartCoroutine(HitFlick());
 
@@ -106,20 +112,20 @@ public class PlayerHPSystem : MonoBehaviour
 
             if (Health <= 0)
             {
-                GameManager.Instance.PlayerCharacter.DeadProcess();
+                GameManager.Instance.StartCoroutine(PlayerCharacter.DeadProcess());
             }
         }
         if (collision.gameObject.CompareTag("EnemyBomb")
             && !GameManager.Instance.PlayerCharacter.bInvincibility
             && !GameManager.Instance.bStageCleared)
         {
-            Health -= 2;
+            HpDown(1);
             Invincibility();
             StartCoroutine(HitFlick());
 
             if (Health <= 0)
             {
-                GameManager.Instance.PlayerCharacter.DeadProcess();
+                GameManager.Instance.StartCoroutine(PlayerCharacter.DeadProcess());
             }
         }
         if (collision.gameObject.CompareTag("Item"))

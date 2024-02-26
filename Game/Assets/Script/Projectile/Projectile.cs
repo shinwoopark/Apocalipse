@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _lifeTime -= Time.deltaTime;
 
@@ -46,24 +46,24 @@ public class Projectile : MonoBehaviour
     {
         if (gameObject.layer == 7)
         {
-            _rotation = 300 * Time.deltaTime * 100;
-            transform.Rotate(new Vector3(0, 0, _rotation) * Time.deltaTime);
+            _rotation = 200 * Time.deltaTime * 75;
+            transform.Rotate(new Vector3(0, 0, _rotation * Time.deltaTime));
         }
     }
     private void TurnLeft()
     {
         if (gameObject.layer == 8)
         {
-            _rotation = 100 * Time.deltaTime * 50;
-            transform.Rotate(new Vector3(0, 0, _rotation) * Time.deltaTime);
+            _rotation = 80 * Time.deltaTime * 30;
+            transform.Rotate(new Vector3(0, 0, _rotation * Time.deltaTime));
         }
     }
     private void TurnRight()
     {
         if (gameObject.layer == 9)
         {
-            _rotation = 200 * Time.deltaTime * 100;
-            transform.Rotate(new Vector3(0, 0, _rotation) * Time.deltaTime);
+            _rotation = 80 * Time.deltaTime * 30;
+            transform.Rotate(new Vector3(0, 0, -_rotation * Time.deltaTime));
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyPatternC : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public Enemy Enemy;
     public float MoveSpeed;
     public GameObject Projectile;
@@ -13,6 +16,9 @@ public class EnemyPatternC : MonoBehaviour
 
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         _originPosition = Random.Range(2, 5);
     }
 
@@ -43,6 +49,7 @@ public class EnemyPatternC : MonoBehaviour
         {
             if (_attack)
             {
+                SoundManager.PlaySFX(13);
                 Invoke("AttackUpdate", 1.5f);
                 GameObject player_gb = GameObject.Find("PlayerCharacter");
                 PlayerCharacter character = player_gb.GetComponent<PlayerCharacter>();

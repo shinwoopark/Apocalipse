@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Animations;
 
 public class PlayerCharacter : GameManager
 {
@@ -11,12 +13,17 @@ public class PlayerCharacter : GameManager
 
     public PlayerUI PlayerUI;
 
+    public SpriteRenderer SpriteRenderer;
+
+    public Animator Animator;
+
     private Vector2 _moveInput;
     public float MoveSpeed;
 
     [HideInInspector] public Dictionary<EnumTypes.PlayerSkill, BaseSkill> Skills;
     [SerializeField] private GameObject[] _skillPrefabs;
 
+    private bool bdead = false;
     private bool binvincibility;
     private Coroutine invincibilityCoroutine;
     private const double invincibilityDurationInSeconds = 3;
@@ -34,11 +41,11 @@ public class PlayerCharacter : GameManager
     public GameObject AddOnPrefab;
     [HideInInspector] public int MaxAddOnCount = 2;
 
-    private bool _binvincibility = false;
+    public bool bInvincibilityCheat = false;
 
     private void Start()
     {
-
+        Animator.SetBool("Dead", false);
         for (int i = 0; i < GameInstance.instance.CurrentAddOnLevel; i++)
         {
             AddOnItem.SpawnAddOn(AddOnPrefab, AddOnTransform[i].position, AddOnTransform[i]);
@@ -47,19 +54,16 @@ public class PlayerCharacter : GameManager
         InitializeSkills();
     }
 
-    public void DeadProcess()
+    public IEnumerator DeadProcess()
     {
-        GameInstance.instance.GameStartTime = 0;
-        GameInstance.instance.Score = 0;
-        GameInstance.instance.CurrentStageLevel = 1;
-        GameInstance.instance.CurrentPlayerWeaponLevel = 0;
-        GameInstance.instance.CurrentPlayerHp = 3;
-        GameInstance.instance.CurrentPlayerFuel = 100f;
-        GameInstance.instance.CurrentAddOnLevel = 0;
+        bdead = true;
+        SoundManager.PlaySFX(8);
+        gameObject.layer = 14;
+        Animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
         SceneManager.LoadScene("Main");
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
@@ -100,26 +104,24 @@ public class PlayerCharacter : GameManager
 
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            Invincibility();
+            if (bInvincibilityCheat)
+            {
+                bInvincibilityCheat = false;
+                return;
+            }
+            if (!bInvincibilityCheat)
+            {
+                bInvincibilityCheat = true;
+                return;
+            }
         }
-
-        UpdateMovement();
-        UpdateSkillInput();
-    }
-
-    private void Invincibility()
-    {
-        if (_binvincibility)
+        if (!bdead)
         {
-            gameObject.layer = 0;
-            return;
-        }
-        if(!_binvincibility)
-        {
-            gameObject.layer = 14;
-            return;
-        }
+            UpdateMovement();
+            UpdateSkillInput();
+        }        
     }
+    
     public void InitskillCoolDown()
     {
         foreach (var skill in Skills.Values)
@@ -131,6 +133,31 @@ public class PlayerCharacter : GameManager
     {
         _moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         transform.Translate(new Vector3(_moveInput.x, _moveInput.y, 0f) * (MoveSpeed * Time.deltaTime));
+
+        if(_moveInput.x > 0)
+        {
+            Animator.SetBool("Right", true);
+        }
+        else
+        {
+            Animator.SetBool("Right", false);
+        }
+        if (_moveInput.x < 0)
+        {
+            Animator.SetBool("Left", true);
+        }
+        else
+        {
+            Animator.SetBool("Left", false);
+        }
+        if (_moveInput.x == 0)    
+        {
+            Animator.SetBool("Idle", true);
+        }
+        else
+        {
+            Animator.SetBool("Idle", false);
+        }
 
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         if (pos.x < 0f) pos.x = 0f;
@@ -226,6 +253,7 @@ public class PlayerCharacter : GameManager
         {
             BaseItem baseIteml = collision.gameObject.GetComponent<BaseItem>();
             baseIteml.OnGetItem(GameManager);
+            SoundManager.PlaySFX(6);
         }
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AddOn : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public GameObject Projectile_gb;
     public float NoEnemyProjectileMoveSpeed = 15;
     public float ProjectileMoveSpeed = 3;
@@ -13,6 +16,8 @@ public class AddOn : MonoBehaviour
 
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
         ShootCycleTime();
     }
 
@@ -54,6 +59,7 @@ public class AddOn : MonoBehaviour
             }
             GameObject instance = Instantiate(Projectile_gb, transform.position, Quaternion.identity);
             Projectile projectile = instance.GetComponent<Projectile>();
+            SoundManager.PlaySFX(12);
             if (projectile != null)
             {
                 Vector3 direction = EnemyPos - transform.position;

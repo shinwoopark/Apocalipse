@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     [SerializeField]
     private float MoveSpeed = 10f;
 
@@ -13,6 +16,9 @@ public class Meteor : MonoBehaviour
     private float _lifeTime = 3f;
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+        SoundManager.PlaySFX(16);
         Destroy(gameObject, _lifeTime);
     }
 

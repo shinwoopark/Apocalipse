@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public MapManager MapManager;
     public EnemySpawnManager EnemySpawnManager;
     public ItemManager ItemManager;
+    public SoundManager SoundManager;
 
     public Canvas StageResultCanvas;
     public GameObject StageResultCanvas_gb;
@@ -64,17 +65,36 @@ public class GameManager : MonoBehaviour
 
         MapManager.Init(this);
     }
+
+    private void Update()
+    {
+        MouseSound();
+    }
+
     public void GameStart()
     {
         SceneManager.LoadScene("Stage1");
+        InitInstance();
+    }
+
+    public void MouseSound()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            SoundManager.PlaySFX(0);
+        }
     }
     public void EnemDies()
     {
+        SoundManager.PlaySFX(10);
         AddScore(10);
     }
 
     public void StageClear()
     {
+        SoundManager.StopBGM();
+        SoundManager.PlaySFX(9);
+
         AddScore(500);
 
         float gameStartTime = GameInstance.instance.GameStartTime;
@@ -87,7 +107,7 @@ public class GameManager : MonoBehaviour
         TimeText.text = "ElapsedTime : " + elapsedTime;
 
         bStageCleared = true;
-
+         
         StartCoroutine(LoadNextStageAfterDelay(5f));
     }
 
@@ -114,5 +134,10 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         GameInstance.instance.Score += score;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

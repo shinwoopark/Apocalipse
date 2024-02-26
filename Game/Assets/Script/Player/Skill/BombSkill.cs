@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class BombSkill : BaseSkill
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
+    void Start()
+    {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+    }
+
     public override void Activate()
     {
         base.Activate();
-
+        SoundManager.PlaySFX(2);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject obj in enemies)
         {
             if (obj != null)
             {
-                if (obj.tag == "Boss")
-                    return;
-
-                Enemy enemy = obj.GetComponent<Enemy>();
-                if (enemy != null)
+                if (obj.layer != 13)
                 {
-                    enemy.Dead();
+                    Enemy enemy = obj.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {   
+                        enemy.Dead();
+                    }
                 }
             }
         }

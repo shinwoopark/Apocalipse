@@ -14,6 +14,8 @@ public class CoolDownText
 
 public class PlayerUI : MonoBehaviour
 {
+    public SoundManager SoundManager;
+
     public Image[] HealthImages = new Image[3];
     public Image RepairSkill;
     public Image BombSkill;
@@ -69,6 +71,7 @@ public class PlayerUI : MonoBehaviour
 
     IEnumerator NoticeText(EnumTypes.PlayerSkill playerSkill)
     {
+        SoundManager.PlaySFX(7);
         SkillCooldownNoticeText.gameObject.SetActive(true);
         SkillCooldownNoticeText.text = $"{playerSkill.ToString()} Skill is Cooldown";
 

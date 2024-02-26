@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class Bomb : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public GameObject BombProjactile;
     public float ProjectileMoveSpeed;
 
@@ -16,6 +19,9 @@ public class Bomb : MonoBehaviour
     private bool bready = false;
     private void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         Invoke("Attack", 3);
     }
 
@@ -49,6 +55,7 @@ public class Bomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("BombProjectile"))
         {
+            SoundManager.PlaySFX(15);
             BombEX.SetActive(true);
             Destroy(collision.gameObject);
             Invoke("Destroy", 0.35f);

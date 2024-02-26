@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyPatternB : MonoBehaviour
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public Enemy Enemy;
     public float MoveSpeed;
     public float AttackStopTime;
@@ -15,6 +18,9 @@ public class EnemyPatternB : MonoBehaviour
 
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         StartCoroutine(Attack());
     }
 
@@ -50,6 +56,7 @@ public class EnemyPatternB : MonoBehaviour
             Vector3 direction = playerPos - transform.position;
             direction.Normalize();
 
+            SoundManager.PlaySFX(13);
             var projectile = Instantiate(Projectile, transform.position, Quaternion.identity);
             projectile.GetComponent<Projectile>().SetDirection(direction);
             projectile.GetComponent<Projectile>().MoveSpeed = ProjectileMoveSpeed;

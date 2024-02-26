@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PrimarySkill : BaseSkill
 {
+    public SoundManager SoundManager;
+    public GameObject SoundManager_gb;
+
     public float ProjectileMoveSpeed;
     public GameObject Projectile;
 
@@ -12,6 +15,9 @@ public class PrimarySkill : BaseSkill
 
     void Start()
     {
+        SoundManager_gb = GameObject.Find("Managers");
+        SoundManager = SoundManager_gb.GetComponent<SoundManager>();
+
         CooldownTime = 0.2f;
 
         weapons = new Weapon[6];
@@ -39,6 +45,7 @@ public class PrimarySkill : BaseSkill
         {
             projectile.MoveSpeed = ProjectileMoveSpeed;
             projectile.SetDirection(direction.normalized);
+            SoundManager.PlaySFX(1);
         }
     }
 }
